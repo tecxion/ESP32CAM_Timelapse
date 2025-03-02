@@ -25,5 +25,10 @@ Para cambiar el tiempo del timelapse ya que no funciona en la web aunque está i
 
 ```
 unsigned long timelapseInterval = 10000;
+```
+#### Aquí puedes ver la linea que tienes que cambiar.
+
+![](Resources/timelapse.png)
+
 
 

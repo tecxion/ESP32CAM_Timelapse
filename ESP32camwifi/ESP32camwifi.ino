@@ -5,8 +5,8 @@
 #include "time.h"
 #include <soc/rtc_cntl_reg.h>  // Incluye el registro para desactivar el brownout detector
 
-const char* ssid = "TU_SSID_WIFI_AQUI";
-const char* password = "CONTRASEÑA_DE_TU_WIFI";
+const char* ssid = "MIWIFI_2G_HJWj";
+const char* password = "GcbFXuMP";
 String myTimezone = "CET-1CEST,M3.5.0,M10.5.0/3";
 
 void initWiFi() {
@@ -68,25 +68,21 @@ void setup() {
 
 void loop() {
     if (isTimelapseRunning()) {
-        String path = getPictureFilename();
-        if (path.isEmpty()) {
-            Serial.println("Failed to get picture filename");
-            return;
+        static unsigned long lastCapture = 0;
+        unsigned long now = millis();
+        
+        if (now - lastCapture >= getTimelapseInterval()) {
+            lastCapture = now;
+            
+            // Capturar y guardar foto
+            String path = getPictureFilename();
+            if (!path.isEmpty()) {
+                camera_fb_t* fb = capturePhoto();
+                if (fb) {
+                    savePhoto(path.c_str(), fb->buf, fb->len);
+                    releasePhoto(fb);
+                }
+            }
         }
-
-        camera_fb_t* fb = capturePhoto();
-        if (!fb) {
-            Serial.println("Camera capture failed");
-            return;
-        }
-
-        if (!savePhoto(path.c_str(), fb->buf, fb->len)) {
-            Serial.println("Failed to save photo");
-        } else {
-            Serial.println("Photo saved: " + path);
-        }
-
-        releasePhoto(fb);
-        delay(10000); // Wait 10 seconds before taking the next photo
     }
 }

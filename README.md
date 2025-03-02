@@ -24,6 +24,5 @@ Para cambiar el tiempo del timelapse ya que no funciona en la web aunque está i
 
 ```
 unsigned long timelapseInterval = 10000;
-'''
 
 

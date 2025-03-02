@@ -21,6 +21,7 @@ Version 1.0 <br>
 
 <br>
 Para cambiar el tiempo del timelapse ya que no funciona en la web aunque está implementado tendrás que cambiar la linea del web_server.cpp donde pone:
+
 ```
 unsigned long timelapseInterval = 10000;
 '''

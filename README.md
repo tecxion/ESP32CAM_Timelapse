@@ -6,4 +6,12 @@ Version 1.0 <br>
 - Actualmente funciona la pag. web con la ip que da el monitor serie, pero el cambio del timelapse en la web no funciona.
   - Para cambiar el volteo de la imagen, el stream debe estar parado.
 <br>
+<br>
 * Por el momento no hay ninguna modificación más.
+<br>
+#### En la imagen puedes ver la configuración de la placa para que funcione, recuerda poner el monitor en 115200 beaudio.
+![Imagen Placa](Resources/placa.png)
+<br>
+- En la siguiente imagen podrás ver el diseño de la web, cualquier duda o consulta puedes preguntarme.
+![](Resources/web.png)
+

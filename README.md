@@ -10,8 +10,12 @@ Version 1.0 <br>
 * Por el momento no hay ninguna modificación más.
 <br>
 #### En la imagen puedes ver la configuración de la placa para que funcione, recuerda poner el monitor en 115200 beaudio.
+<br>
+
 ![Imagen Placa](Resources/placa.png)
 <br>
 - En la siguiente imagen podrás ver el diseño de la web, cualquier duda o consulta puedes preguntarme.
+<br>
+
 ![](Resources/web.png)
 

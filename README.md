@@ -24,11 +24,13 @@ Version 1.0 <br>
 <br>
 Para cambiar el tiempo del timelapse ya que no funciona en la web aunque está implementado tendrás que cambiar la linea del web_server.cpp donde pone:
 <br>
-#### EDITO: EL TIMELAPSE ESTÁ ARREGLADO PERO SI QUIERES CAMBIARLO DESDE EL PROGRAMA DE ARDUINO DEJO DONDE CAMBIARLO.
+> [!IMPORTANT]
+> ## EDITO: EL TIMELAPSE ESTÁ ARREGLADO PERO SI QUIERES CAMBIARLO DESDE EL PROGRAMA DE ARDUINO DEJO DONDE CAMBIARLO.
 
 ```
 unsigned long timelapseInterval = 10000;
 ```
+<br>
 #### Aquí puedes ver la linea que tienes que cambiar.
 
 ![](Resources/timelapse.png)

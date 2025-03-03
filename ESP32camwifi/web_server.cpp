@@ -40,7 +40,7 @@ const char* index_html = R"rawliteral(
             <h2>Configuración Timelapse</h2>
             <label>Intervalo (segundos): </label>
             <input type="number" id="interval" min="1" value="10">
-            <button onclick="setInterval()">Establecer</button>
+            <button onclick="setTimelapseInterval()">Establecer</button>
             <br>
             <button class="btn-start" onclick="startTimelapse()">⏳ Iniciar Timelapse</button>
             <button class="btn-stop" onclick="stopTimelapse()">⏹ Detener Timelapse</button>
@@ -98,12 +98,22 @@ const char* index_html = R"rawliteral(
                 .catch(error => console.error('Error:', error));
         }
 
-        function setInterval() {
-            const interval = document.getElementById('interval').value * 1000;
-            fetch(`/set_interval?interval=${interval}`)
-                .then(response => console.log('Intervalo actualizado'))
-                .catch(error => console.error('Error:', error));
-        }
+        function setTimelapseInterval() {
+          const intervalInput = document.getElementById('interval');
+          const interval = intervalInput.value * 1000;
+          console.log('Enviando intervalo:', interval);
+
+          fetch(`/set_interval?interval=${interval}`)
+            .then(response => {
+            if (response.ok) {
+                console.log('Intervalo actualizado');
+            } else {
+                console.error('Error al actualizar el intervalo');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 
         function applySettings() {
             const resolution = document.getElementById('resolution').value;
@@ -199,13 +209,20 @@ static esp_err_t stop_timelapse_handler(httpd_req_t *req) {
 
 // Manejador para establecer el intervalo del timelapse
 static esp_err_t set_interval_handler(httpd_req_t *req) {
-    char buf[10];
-    if (httpd_req_get_url_query_str(req, buf, sizeof(buf)) == ESP_OK) {
+    char buf[100];
+    int ret = httpd_req_get_url_query_str(req, buf, sizeof(buf));
+    if (ret == ESP_OK) {
+        Serial.printf("Query string: %s\n", buf);
+        
         char interval[10];
         if (httpd_query_key_value(buf, "interval", interval, sizeof(interval)) == ESP_OK) {
-            timelapseInterval = atol(interval);  // Actualiza el intervalo
-            Serial.printf("Intervalo actualizado: %lu ms\n", timelapseInterval);
+            timelapseInterval = atol(interval);  // Convertir el valor recibido a entero
+            Serial.printf("Nuevo intervalo recibido: %lu ms\n", timelapseInterval);
+        } else {
+            Serial.println("Error al obtener el valor de 'interval'");
         }
+    } else {
+        Serial.println("Error al obtener la query string");
     }
     return httpd_resp_send(req, "Intervalo actualizado", HTTPD_RESP_USE_STRLEN);
 }
